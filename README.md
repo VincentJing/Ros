@@ -16,6 +16,7 @@ CMake
 >> * 有工作流程可知其核心为如何编写CMakeLists.txt。
 >> * CMakeLists.txt的编写是根据目录结构和源程序的各种依赖或其他情况。
 >> * CMakeLists.txt中常用的命名。
+
 >>>> * project<br>
          project(PROJECTNAME [CXX] [C] [JAVA])<BR>
          指定工程名称,并可指定工程支持的语言。支持语言列表可忽略,默认支持所有语言<br>
