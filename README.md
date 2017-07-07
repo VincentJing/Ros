@@ -205,7 +205,7 @@ Catkin_make
 >>>$ make<br>
 
 >catkin_make中每个包需要CMakeLists.txt和package.xml
->>CMakeLists.txt需要按照下列流程（其与一般CMakeLists.txt的差别主要在于红色字体）
+>>CMakeLists.txt需要按照下列流程（4、5、6、7、9）
 >>>* 1.Required CMake Version (cmake_minimum_required)
 >>>* 2.Package Name (project())
 >>>* 3.Find other CMake/Catkin packages needed for build (find_package())
