@@ -105,8 +105,7 @@ CMake
 >>>>  [...])<br>
       参数中的TARGETS后面跟的就是我们通过ADD_EXECUTABLE或者ADD_LIBRARY定义的目标文件,可能是可执行二进制、动态库、静态库。
       <br>DESTINATION定义了安装的路径,如果路径以/开头,那么指的是绝对路径,这时候CMAKE_INSTALL_PREFIX其实就无效了。
-      <br>如果你希望使用CMAKE_INSTALL_PREFIX来定义安装路径,就要写成相对路径,即不要以/开头,那么安装后的路径就是${CMAKE_INSTALL_PREFIX}
-      <br>/<destination定义的路径>
+      <br>如果你希望使用CMAKE_INSTALL_PREFIX来定义安装路径,就要写成相对路径,即不要以/开头,那么安装后的路径就是${CMAKE_INSTALL_PREFIX}/< destination定义的路径>
       <br>PERMISSIONS定义安装文件的权限，若本机上没有相应权限则作废
       <br>CONFIGURATIONS安装规则的配置列表
 
@@ -293,6 +292,7 @@ ROS下的编译工作
 
 >CMakeLists.txt编写
 >> * CMakeLists.txt编写
+
 >>> * 申明使用CMake的最低版本号(根据你所使用的ros的版本不同而不同)<br>
      cmake_minimum_required(VERSION x.x.x)<br>
 >>> * 项目的名称<br>
