@@ -205,7 +205,7 @@ Catkin_make
 >>>$ make<br>
 
 >catkin_make中每个包需要CMakeLists.txt和package.xml
->>CMakeLists.txt需要按照下列流程（4、5、6、7、9）
+>>CMakeLists.txt需要按照下列流程（4、5、6、7、9与一般的不同）
 >>>* 1.Required CMake Version (cmake_minimum_required)
 >>>* 2.Package Name (project())
 >>>* 3.Find other CMake/Catkin packages needed for build (find_package())
@@ -237,7 +237,7 @@ Catkin_make
 
 ROS下的编译工作
 ---
-####CMakeLists.txt依赖于被编译的文件的存储路径和各种调用关系
+#### CMakeLists.txt依赖于被编译的文件的存储路径和各种调用关系
 
 >ros工作空间
 
