@@ -464,8 +464,8 @@ ROS下的编译工作
         
         --用src/amcl_node.cpp生成可执行文件amcl
         add_executable(amcl  src/amcl_node.cpp)
-        add_dependencies添加依赖
         
+        添加依赖
         add_dependencies(amcl amcl_gencfg)
         
         //#添加对其它package消息的依赖，前提是已经通过find_package()引入了这个package
