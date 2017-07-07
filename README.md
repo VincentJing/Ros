@@ -294,7 +294,7 @@ ROS下的编译工作
 >> * CMakeLists.txt编写
 
 >>> * 申明使用CMake的最低版本号(根据你所使用的ros的版本不同而不同)<br>
-     cmake_minimum_required(VERSION x.x.x)<br>
+    cmake_minimum_required(VERSION x.x.x)<br>
 >>> * 项目的名称<br>
     project(xxx)<br>
 >>> * 指明构建该包需要的package，catkin包必须包含，后面的依情况而定<br>
@@ -302,18 +302,18 @@ ROS下的编译工作
 >>> * 申明对python模块的支持（可选)<br>
     
 >>> * 添加过程中需要使用的messages,services,actions(没有用的可以不用添加)<br>
-     #需要在package.xml中加入<build_depend>message_generation</build_depend>.<run_depend>message_runtime</run_depend><br>
-     #需要在CMakeLists.xml的find_package（）中加入message_generation，在catkin_package()中添加message_runtime<br>
-     #在包下的msg文件夹下生成消息Num.msg<br>
-     add_message_files(<br>
-          FILES<br>
-          Num.msg<br>
-     )<br>
-     #在包下的srv文件夹下生成服务AddTwoInts.srv<br>
-     add_service_files(<br>
-          FILES<br>
-          AddTwoInts.srv<br>
-     )<br>
+    #需要在package.xml中加入<build_depend>message_generation</build_depend>.<run_depend>message_runtime</run_depend><br>
+    #需要在CMakeLists.xml的find_package（）中加入message_generation，在catkin_package()中添加message_runtime<br>
+    #在包下的msg文件夹下生成消息Num.msg<br>
+    add_message_files(<br>
+        FILES<br>
+        Num.msg<br>
+    )<br>
+    #在包下的srv文件夹下生成服务AddTwoInts.srv<br>
+    add_service_files(<br>
+        FILES<br>
+        AddTwoInts.srv<br>
+    )<br>
      #在包下的action文件夹下生成操作Action1.action<br>
      add_action_files(<br>
           FILES<br>
@@ -339,26 +339,30 @@ ROS下的编译工作
        #DEPENDS  system_lib                添加配置选项<br>
     )<br>
 >>> * 编译<br>
-    #当前包的位置要在其他包之前列出
+    #添加需要引用文件的头文件<br>
     include_directories(<br>
        include   ${catkin_INCLUDE_DIRS}<br>
     )<br>
+    <br>
     生成库文件<br>
     add_library(${PROJECT_NAME}   src/${PROJECT_NAME}/beginner_tutorials.cpp)<br>
-    添加依赖依赖<br>
-    #添加对其它package消息的依赖，前提是已经通过find_package()引入了这个package
-    add_dependencies(${PROJECT_NAME}  ${catkin_EXPORTED_TARGETS}}
-    #添加对本package消息的依赖
-    dd_dependencies(${PROJECT_NAME}  ${PROJECT_NAME}_EXPORTED_TARGETS}}
-    #如果满足上述两个条件则添加两个
-    add_dependencies(${PROJECT_NAME}  ${PROJECT_NAME}_EXPORTED_TARGETS}  ${catkin_EXPORTED_TARGETS})<br>
     生成可执行文件<br>
     add_executable(${PROJECT_NAME}_node  src/beginner_tutorials_node.cpp)<br>
-    修改可执行文件的相关信息<br>
-    set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")<br>
+    <br>
+    添加依赖依赖<br>
+    #添加对其它package消息的依赖，前提是已经通过find_package()引入了这个package<br>
+    add_dependencies(${PROJECT_NAME}  ${catkin_EXPORTED_TARGETS}}<br>
+    #添加对本package消息的依赖<br>
+    dd_dependencies(${PROJECT_NAME}  ${PROJECT_NAME}_EXPORTED_TARGETS}}<br>
+    #如果满足上述两个条件则添加两个<br>
+    add_dependencies(${PROJECT_NAME}  ${PROJECT_NAME}_EXPORTED_TARGETS}  ${catkin_EXPORTED_TARGETS})<br>
+    <br>
     为目标申明链接库<br>
     target_link_libraries(${PROJECT_NAME}_node  ${catkin_LIBRARIES})<br>
->>> * 测试(可选)<br> 
+    <br> 
+    修改可执行文件的相关信息<br>
+    set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")<br>
+>>> * 测试(可选)<br>
     添加基于gtt的cpp测试目标和链接库<br>
     catkin_add_gtest(${PROJECT_NAME}-test  test/test_beginner_tutorials.cpp)<br>
     if(TARGET ${PROJECT_NAME}-test)<br>
@@ -460,7 +464,6 @@ ROS下的编译工作
         
         --用src/amcl_node.cpp生成可执行文件amcl
         add_executable(amcl  src/amcl_node.cpp)
-   
         add_dependencies添加依赖
         #添加对其它package消息的依赖，前提是已经通过find_package()引入了这个package
         add_dependencies(my_target ${catkin_EXPORTED_TARGETS})
