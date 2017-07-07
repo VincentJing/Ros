@@ -106,6 +106,7 @@ CMake
       <br>DESTINATION定义了安装的路径,如果路径以/开头,那么指的是绝对路径,这时候CMAKE_INSTALL_PREFIX其实就无效了。
       <br>如果你希望使用CMAKE_INSTALL_PREFIX来定义安装路径,就要写成相对路径,即不要以/开头,那么安装后的路径就是${CMAKE_INSTALL_PREFIX}
       <br>/<destination定义的路径>
+      <>
 
 
 
