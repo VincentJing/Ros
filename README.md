@@ -106,8 +106,8 @@ CMake
       <br>DESTINATION定义了安装的路径,如果路径以/开头,那么指的是绝对路径,这时候CMAKE_INSTALL_PREFIX其实就无效了。
       <br>如果你希望使用CMAKE_INSTALL_PREFIX来定义安装路径,就要写成相对路径,即不要以/开头,那么安装后的路径就是${CMAKE_INSTALL_PREFIX}
       <br>/<destination定义的路径>
-
-
+      <br>PERMISSIONS定义安装文件的权限，若本机上没有相应权限则作废
+      <br>CONFIGURATIONS安装规则的配置列表
 
 
 >CMake事例
@@ -187,7 +187,7 @@ CMake
            add_library(libfunc [STATIC | SHARED | MODULE] function.cxx)
 >>>运行和第一个事例一样。
 
-catkin_make
+Catkin_make
 ---
 >根据ros官网给出的介绍以下两种表达是等价的。
 >> catkin_make
@@ -292,45 +292,44 @@ ROS下的编译工作
 
 >CMakeLists.txt编写
 >> * CMakeLists.txt编写
->>> * 申明使用CMake的最低版本号<br>
-     cmake_minimum_required(VERSION 2.8.3)<br>
+>>> * 申明使用CMake的最低版本号(根据你所使用的ros的版本不同而不同)<br>
+     cmake_minimum_required(VERSION x.x.x)<br>
 >>> * 项目的名称<br>
-    project(beginner_tutorials)<br>
+    project(xxx)<br>
 >>> * 指明构建该包需要的package，catkin包必须包含，后面的依情况而定<br>
     find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs message_generation)<br>
 >>> * 申明对python模块的支持（可选)<br>
     
 >>> * 添加过程中需要使用的messages,services,actions(没有用的可以不用添加)<br>
-     #需要在package.xml中加入<build_depend>message_generation</build_depend>.<run_depend>message_runtime</run_depend>
-     #需要在CMakeLists.xml的find_package（）中加入message_generation，在catkin_package()中添加message_runtime
-     #Generate messages in the 'msg' folder<br>
+     #需要在package.xml中加入<build_depend>message_generation</build_depend>.<run_depend>message_runtime</run_depend><br>
+     #需要在CMakeLists.xml的find_package（）中加入message_generation，在catkin_package()中添加message_runtime<br>
+     #在包下的msg文件夹下生成消息Num.msg<br>
      add_message_files(<br>
           FILES<br>
           Num.msg<br>
      )<br>
-     #Generate services in the 'srv' folder<br>
+     #在包下的srv文件夹下生成服务AddTwoInts.srv<br>
      add_service_files(<br>
           FILES<br>
           AddTwoInts.srv<br>
      )<br>
-     #Generate actions in the 'action' folder<br>
+     #在包下的action文件夹下生成操作Action1.action<br>
      add_action_files(<br>
           FILES<br>
           Action1.action<br>
      )<br>
->>> * 调用消息,服务或动作生成<br>
-     #Generate added messages and services with any dependencies listed here<br>
+>>> * 调用、生成消息,服务时的所需要的依赖<br>
      generate_messages(<br>
           DEPENDENCIES<br>
           std_msgs<br>
      )<br>
 >>> * 动态配置（可选）
-     #Generate dynamic reconfigure parameters in the 'cfg' folder<br>
+     #在包下的cfg文件夹中生成动态配置参数<br>
      generate_dynamic_reconfigure_options(<br>
         cfg/DynReconf1.cfg<br>
      )<br>
->>> *  catkin_package()<br>
-    #catkin specific configuration<br> 
+>>> * catkin_package()<br>
+    #catkin的特殊配置，必须在生成库文件或则可执行文件之前执行<br> 
     catkin_package(<br>
        #INCLUDE_DIRS  include           包含路径<br>
        #LIBRARIES  beginner_tutorials               项目输出的库文件<br>
@@ -339,23 +338,23 @@ ROS下的编译工作
        #DEPENDS  system_lib                添加配置选项<br>
     )<br>
 >>> * 编译<br>
-    你的包的位置所要在其他包之前列出
+    #当前包的位置要在其他包之前列出
     include_directories(<br>
        include   ${catkin_INCLUDE_DIRS}<br>
     )<br>
     生成库文件<br>
     add_library(${PROJECT_NAME}   src/${PROJECT_NAME}/beginner_tutorials.cpp)<br>
-    依赖<br>
-    //根据你所处理的目标文件，如果自身用到消息则选用${catkin_EXPORTED_TARGETS}<br>
-    //如果需要用到的相关文件用到消息则用${PROJECT_NAME}_EXPORTED_TARGETS}<br>
-    //如果满足上述两个条件则添加两个
-    add_dependencies(${PROJECT_NAME}  ${${PROJECT_NAME}_EXPORTED_TARGETS}  ${catkin_EXPORTED_TARGETS})<br>
+    添加依赖依赖<br>
+    #添加对其它package消息的依赖，前提是已经通过find_package()引入了这个package
+    add_dependencies(${PROJECT_NAME}  ${catkin_EXPORTED_TARGETS}}
+    #添加对本package消息的依赖
+    dd_dependencies(${PROJECT_NAME}  ${PROJECT_NAME}_EXPORTED_TARGETS}}
+    #如果满足上述两个条件则添加两个
+    add_dependencies(${PROJECT_NAME}  ${PROJECT_NAME}_EXPORTED_TARGETS}  ${catkin_EXPORTED_TARGETS})<br>
     生成可执行文件<br>
     add_executable(${PROJECT_NAME}_node  src/beginner_tutorials_node.cpp)<br>
     修改可执行文件的相关信息<br>
     set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")<br>
-    为目标申明依赖文件<br>
-    add_dependencies(${PROJECT_NAME}_node  ${${PROJECT_NAME}_EXPORTED_TARGETS}  ${catkin_EXPORTED_TARGETS})
     为目标申明链接库<br>
     target_link_libraries(${PROJECT_NAME}_node  ${catkin_LIBRARIES})<br>
 >>> * 测试(可选)<br> 
