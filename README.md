@@ -5,102 +5,102 @@ CMake
 >CMake介绍：
 >> CMake是一个跨平台的安装（编译）工具，可以用简单的语句来描述所有平台的安装(编译过程)。他能够输出各种各样的makefile或者project文件，能测
 >> 试编译器所支持的C++特性,类似UNIX下的automake。只是CMake的组态档取名为CMakeLists.txt。Cmake并不直接建构出最终的软件，而是产生标准的
->> 建构档（如Unix的Makefile或Windows&Visual&C++的projects/workspaces），然后再依一般的建构方式使用。
+>> 建构档（如Unix的Makefile或Windows Visual C++的projects/workspaces），然后再依一般的建构方式使用。
 
 >CMake工作大致流程
 >> * 运行cmake根检测编译环境，并生成相应的makefile。（根据CMakeLists.txt）。
 >> * 运行make进行编译（根据makefile）。
->> * 运行make&install安装到相应的目录下。
+>> * 运行make install安装到相应的目录下。
 
 >CMakeLists.txt
 >> * 有工作流程可知其核心为如何编写CMakeLists.txt。
 >> * CMakeLists.txt的编写是根据目录结构和源程序的各种依赖或其他情况。
 >> * CMakeLists.txt中常用的命名。
 >>>> * project<br>
-         project(PROJECTNAME&[CXX]&[C]&[JAVA])<BR>
+         project(PROJECTNAME [CXX] [C] [JAVA])<BR>
          指定工程名称,并可指定工程支持的语言。支持语言列表可忽略,默认支持所有语言<br>
 >>>> * set<br>
-         set(VAR&[VALUE]&[CACHE&TYPE&DOCSTRING&[FORCE]])<BR>
-       定义变量(可以定义多个VALUE,如SET(SRC_LIST&MAIN.C&UTIL.C&REACTOR.C))<BR>
+         set(VAR [VALUE] [CACHE TYPE DOCSTRING [FORCE]])<BR>
+       定义变量(可以定义多个VALUE,如SET(SRC_LIST MAIN.C UTIL.C REACTOR.C))<BR>
 >>>> * message<br>
-         message([SEND_ERROR&|&STATUS&|&FATAL_ERROR]&“message&to&display”&…)<br>
+         message([SEND_ERROR | STATUS | FATAL_ERROR] “message to display” …)<br>
        向终端输出用户定义的信息或变量的值<br>
        SEND_ERROR, 产生错误,生成过程被跳过<br>
        STATUS, 输出前缀为—的信息<br>
        FATAL_ERROR, 立即终止所有cmake过程<br>
 >>>> * add_executable<br>
-         add_executable(bin_file_name&${SRC_LIST})<br>
+         add_executable(bin_file_name ${SRC_LIST})<br>
        生成可执行文件<br>
 >>>> * add_library<br>
-       add_library(libname&[SHARED&|&STATIC&|&MODULE]&[EXCLUDE_FROM_ALL]&SRC_LIST)<br>
+       add_library(libname [SHARED | STATIC | MODULE] [EXCLUDE_FROM_ALL] SRC_LIST)<br>
        生成动态库或静态库<br>
-       SHARED&动态库<br>
-       STATIC&静态库<br>
-       MODULE&在使用dyld的系统有效,若不支持dyld,等同于SHARED<br>
-       EXCLUDE_FROM_ALL&表示该库不会被默认构建<br>
+       SHARED 动态库<br>
+       STATIC 静态库<br>
+       MODULE 在使用dyld的系统有效,若不支持dyld,等同于SHARED<br>
+       EXCLUDE_FROM_ALL 表示该库不会被默认构建<br>
 >>>> * set_target_properties<br>
        设置输出的名称,设置动态库的版本和API版本<br>
 >>>> * cmake_minimum_required<br>
-       cmake_minimum_required(VERSION&version_number&[FATAL_ERROR])<br>
+       cmake_minimum_required(VERSION version_number [FATAL_ERROR])<br>
        声明CMake的版本要求<br>
 >>>> * add_subdirectory<br>
-       add_subdirectory(src_dir&[binary_dir]&[EXCLUDE_FROM_ALL])<br>
+       add_subdirectory(src_dir [binary_dir] [EXCLUDE_FROM_ALL])<br>
        向当前工程添加存放源文件的子目录,并可以指定中间二进制和目标二进制的存放位置<br>
        EXCLUDE_FROM_ALL含义：将这个目录从编译过程中排除<br>
-       (hello&sample)相当于分别写add_subdirectory(hello),add_subdirectory(sample)<br>
+       (hello sample)相当于分别写add_subdirectory(hello),add_subdirectory(sample)<br>
 >>>> * include_directories<br>
-       include_directories([AFTER&|&BEFORE]&[SYSTEM]&dir1&dir2&…)<br>
+       include_directories([AFTER | BEFORE] [SYSTEM] dir1 dir2 …)<br>
        向工程添加多个特定的头文件搜索路径,路径之间用空格分隔,如果路径包含空格,可以使用双引号将它括起来,默认的行为为追加到当前头文<br>
        件搜索路径的后面。有如下两种方式可以控制搜索路径添加的位置：<br>
        CMAKE_INCLUDE_DIRECTORIES_BEFORE,通过SET这个cmake变量为on,可以将添加的头文件搜索路径放在已有路径的前面<br>
        通过AFTER或BEFORE参数,也可以控制是追加还是置前<br>
 >>>> * link_directories<br>
-       link_directories(dir1&dir2&…)<br>
+       link_directories(dir1 dir2 …)<br>
        添加非标准的共享库搜索路径<br>
 >>>> * target_link_libraries<br>
-       target_link_libraries(target&lib1&lib2&…)<br>
+       target_link_libraries(target lib1 lib2 …)<br>
        为target添加需要链接的共享库<br>
 >>>> * add_definitions<br>
        向C/C++编译器添加-D定义<br>
-       add_definitions(-DENABLE_DEBUG&-DABC),参数之间用空格分隔<br>
+       add_definitions(-DENABLE_DEBUG -DABC),参数之间用空格分隔<br>
 >>>> * add_dependencies<br>
-       add_dependencies(target-name&depend-target1&depend-target2&…)<br>
+       add_dependencies(target-name depend-target1 depend-target2 …)<br>
        定义target依赖的其他target,确保target在构建之前,其依赖的target已经构建完毕<br>
        catkin_make中有两种情况：<br>
        (1)你所构建的包依赖需要使用message等的包<br>
-       add_dependencies(some_target&&${catkin_EXPORTED_TARGETS})<br>
+       add_dependencies(some_target  ${catkin_EXPORTED_TARGETS})<br>
        (2)你所构建的包需要使用message等<br>
-       add_dependencies(some_target&&${${PROJECT_NAME}_EXPORTED_TARGETS})<br>
+       add_dependencies(some_target  ${${PROJECT_NAME}_EXPORTED_TARGETS})<br>
 >>>> * aux_source_directory<br>
-       aux_source_directory(dir&VAR)<br>
+       aux_source_directory(dir VAR)<br>
        发现一个目录下所有的源代码文件并将列表存储在一个变量中把当前目录下的所有源码文件名赋给变量DIR_HELLO_SRCS<br>
 >>>> * exec_program<br>
-        exec_program(Executable&[dir&where&to&run]&[ARGS&<args>]&[OUTPUT_VARIABLE&<var>]&[RETURN_VALUE&<value>])<br>
-        用于在指定目录运行某个程序&默认为当前CMakeLists.txt所在目录）,通过ARGS添加参数,通过OUTPUT_VARIABLE和RETURN_VALUE获取输出和返回值,如下示例
+        exec_program(Executable [dir where to run] [ARGS <args>] [OUTPUT_VARIABLE <var>] [RETURN_VALUE <value>])<br>
+        用于在指定目录运行某个程序 默认为当前CMakeLists.txt所在目录）,通过ARGS添加参数,通过OUTPUT_VARIABLE和RETURN_VALUE获取输出和返回值,如下示例
 >>>> * include<br>
-        include(file&[OPTIONAL])&用来载入CMakeLists.txt文件<br>
-        include(module&[OPTIONAL])用来载入预定义的cmake模块<br>
+        include(file [OPTIONAL]) 用来载入CMakeLists.txt文件<br>
+        include(module [OPTIONAL])用来载入预定义的cmake模块<br>
         OPTIONAL参数的左右是文件不存在也不会产生错误<br>
         可以载入一个文件,也可以载入预定义模块（模块会在CMAKE_MODULE_PATH指定的路径进行搜索)<br>
         载入的内容将在处理到INCLUDE语句时直接执行<br>
 >>>> * find_<br>
-        find_file(<VAR>&name&path1&path2…)<br>
+        find_file(<VAR> name path1 path2…)<br>
         VAR变量代表找到的文件全路径,包含文件名<br>
-        find_library(<VAR>&name&path1&path2…)<br>
+        find_library(<VAR> name path1 path2…)<br>
         VAR变量代表找到的库全路径,包含库文件名<br>
-        find_program(<VAR>&name&path1&path2…)<br>
+        find_program(<VAR> name path1 path2…)<br>
         VAR变量代表包含这个程序的全路径<br>
-        find_package(<name>&[major.minor]&[QUIET]&[NO_MODULE]&[[REQUIRED&|&COMPONENTS]&[componets…]])<br>
+        find_package(<name> [major.minor] [QUIET] [NO_MODULE] [[REQUIRED | COMPONENTS] [componets…]])<br>
         用来调用预定义在CMAKE_MODULE_PATH下的Find<name>.cmake模块,你也可以自己定义Find<name><br>
         模块,通过SET(CMAKE_MODULE_PATH dir)将其放入工程的某个目录供工程使用<br>
-        ros下find_package()需要包含（catkin()宏）如：find_package(catkin&...)<br>
->>>> * install(TARGETS&targets...<br>
->>>>  [&[&ARCHIVE&|&LIBRARY&|&RUNTIME&]<br>
->>>>  [&DESTINATION&<&dir&>]<br>
->>>>  [&PERMISSIONS&permissions...]<br>
->>>>  [&CONFIGURATIONS&[&Debug&|&Release&|...]&]<br>
->>>>  [&COMPONENT&<&component&>]<br>
->>>>  [&OPTIONAL&]
+        ros下find_package()需要包含（catkin()宏）如：find_package(catkin ...)<br>
+>>>> * install(TARGETS targets...<br>
+>>>>  [ [ ARCHIVE | LIBRARY | RUNTIME ]<br>
+>>>>  [ DESTINATION < dir >]<br>
+>>>>  [ PERMISSIONS permissions...]<br>
+>>>>  [ CONFIGURATIONS [ Debug | Release |...] ]<br>
+>>>>  [ COMPONENT < component >]<br>
+>>>>  [ OPTIONAL ]
 >>>>  [...])<br>
       参数中的TARGETS后面跟的就是我们通过ADD_EXECUTABLE或者ADD_LIBRARY定义的目标文件,可能是可执行二进制、动态库、静态库。
       <br>DESTINATION定义了安装的路径,如果路径以/开头,那么指的是绝对路径,这时候CMAKE_INSTALL_PREFIX其实就无效了。
@@ -191,36 +191,36 @@ catkin_make
 ---
 >根据ros官网给出的介绍以下两种表达是等价的。
 >> catkin_make
->>>$&cd&~/catkin_make<br>	
->>>$&catkin_make<br>
+>>>$ cd ~/catkin_make<br>	
+>>>$ catkin_make<br>
 
 >>cmake
->>>$&cd&~/catkin_ws<br>	
->>>$&cd&src<br>
->>>$&catkin_init_workspace<br>
->>>$&cd&..<br>
->>>$&mkdir&build<br>
->>>$&cd&build<br>
->>>$&cmake&../src&-DCMAKE_INSTALL_PREFIX=../install&-DCATKIN_DEVEL_PREFIX=../devel<br>
->>>$&make<br>
+>>>$ cd ~/catkin_ws<br>	
+>>>$ cd src<br>
+>>>$ catkin_init_workspace<br>
+>>>$ cd ..<br>
+>>>$ mkdir build<br>
+>>>$ cd build<br>
+>>>$ cmake ../src -DCMAKE_INSTALL_PREFIX=../install -DCATKIN_DEVEL_PREFIX=../devel<br>
+>>>$ make<br>
 
 >catkin_make中每个包需要CMakeLists.txt和package.xml
 >>CMakeLists.txt需要按照下列流程（其与一般CMakeLists.txt的差别主要在于红色字体）
->>>* 1.Required&CMake&Version&(cmake_minimum_required)
->>>* 2.Package&Name&(project())
->>>* 3.Find&other&CMake/Catkin&packages&needed&for&build&(find_package())
+>>>* 1.Required CMake Version (cmake_minimum_required)
+>>>* 2.Package Name (project())
+>>>* 3.Find other CMake/Catkin packages needed for build (find_package())
 >>>//如果您的ROS包提供了一些Python模块，您应该创建一个setup.py文件并调用
->>>* <font color=red>4.Enable&Python&module&support&(catkin_python_setup())</font>
->>>* <font color=red>5.Message/Service/Action&Generators&(add_message_files(),add_service_files(),add_action_files())</font>
->>>* <font color=red>6.Invoke&message/service/action&generation&(generate_messages())</font>
+>>>* <font color=red>4.Enable Python module support (catkin_python_setup())</font>
+>>>* <font color=red>5.Message/Service/Action Generators (add_message_files(),add_service_files(),add_action_files())</font>
+>>>* <font color=red>6.Invoke message/service/action generation (generate_messages())</font>
 >>>//负责ros特定的配置,这也是ros包和一般包的区别
->>>* <font color=red>7.Specify&package&build&info&export&(catkin_package())</font>
->>>* 8.Libraries/Executables&to&build&(add_library()/add_executable()/target_link_libraries())
->>>* <font color=red>9.Tests&to&build&(catkin_add_gtest())</font>
->>>* 10.Install&rules&(install()) 
+>>>* <font color=red>7.Specify package build info export (catkin_package())</font>
+>>>* 8.Libraries/Executables to build (add_library()/add_executable()/target_link_libraries())
+>>>* <font color=red>9.Tests to build (catkin_add_gtest())</font>
+>>>* 10.Install rules (install()) 
 
 >>package.xml
->>>最基本的标签package&name,version&numbers,authors,maintainers,and&dependencies&on&other&catkin&packages
+>>>最基本的标签package name,version numbers,authors,maintainers,and dependencies on other catkin packages
     
     <package>
     <name>xx</name>
@@ -297,99 +297,99 @@ ROS下的编译工作
 >>> * 项目的名称<br>
     project(beginner_tutorials)<br>
 >>> * 指明构建该包需要的package，catkin包必须包含，后面的依情况而定<br>
-    find_package(catkin&REQUIRED&COMPONENTS&roscpp&rospy&std_msgs&message_generation)<br>
+    find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs message_generation)<br>
 >>> * 申明对python模块的支持（可选)<br>
     
 >>> * 添加过程中需要使用的messages,services,actions(没有用的可以不用添加)<br>
      #需要在package.xml中加入<build_depend>message_generation</build_depend>.<run_depend>message_runtime</run_depend>
      #需要在CMakeLists.xml的find_package（）中加入message_generation，在catkin_package()中添加message_runtime
-     #Generate&messages&in&the&'msg'&folder<br>
+     #Generate messages in the 'msg' folder<br>
      add_message_files(<br>
-       &&&FILES<br>
-       &&&Num.msg<br>
+          FILES<br>
+          Num.msg<br>
      )<br>
-     #Generate&services&in&the&'srv'&folder<br>
+     #Generate services in the 'srv' folder<br>
      add_service_files(<br>
-       &&&FILES<br>
-       &&&AddTwoInts.srv<br>
+          FILES<br>
+          AddTwoInts.srv<br>
      )<br>
-     #Generate&actions&in&the&'action'&folder<br>
+     #Generate actions in the 'action' folder<br>
      add_action_files(<br>
-       &&&FILES<br>
-       &&&Action1.action<br>
+          FILES<br>
+          Action1.action<br>
      )<br>
 >>> * 调用消息,服务或动作生成<br>
-     #Generate&added&messages&and&services&with&any&dependencies&listed&here<br>
+     #Generate added messages and services with any dependencies listed here<br>
      generate_messages(<br>
-       &&&DEPENDENCIES<br>
-       &&&std_msgs<br>
+          DEPENDENCIES<br>
+          std_msgs<br>
      )<br>
 >>> * 动态配置（可选）
-     #Generate&dynamic&reconfigure&parameters&in&the&'cfg'&folder<br>
+     #Generate dynamic reconfigure parameters in the 'cfg' folder<br>
      generate_dynamic_reconfigure_options(<br>
-     &&&cfg/DynReconf1.cfg<br>
+        cfg/DynReconf1.cfg<br>
      )<br>
 >>> *  catkin_package()<br>
-    #catkin&specific&configuration<br> 
+    #catkin specific configuration<br> 
     catkin_package(<br>
-    &&&#INCLUDE_DIRS&&include&&&&&&&&&&&包含路径<br>
-    &&&#LIBRARIES&&beginner_tutorials&&&&&&&&&&&&&&&项目输出的库文件<br>
-    &&&CATKIN_DEPENDS&&message_runtime&&&&&&&&&&&&&&这个项目调用的其他的catkin项目<br>
-    &&&#CATKIN_DEPENDS&&roscpp&rospy&std_msgs&&&&&&&&&&&&&这个项目调用其他的cmake项目<br>
-    &&&#DEPENDS&&system_lib&&&&&&&&&&&&&&&&添加配置选项<br>
+       #INCLUDE_DIRS  include           包含路径<br>
+       #LIBRARIES  beginner_tutorials               项目输出的库文件<br>
+       CATKIN_DEPENDS  message_runtime              这个项目调用的其他的catkin项目<br>
+       #CATKIN_DEPENDS  roscpp rospy std_msgs             这个项目调用其他的cmake项目<br>
+       #DEPENDS  system_lib                添加配置选项<br>
     )<br>
 >>> * 编译<br>
     你的包的位置所要在其他包之前列出
     include_directories(<br>
-    &&&include&&&${catkin_INCLUDE_DIRS}<br>
+       include   ${catkin_INCLUDE_DIRS}<br>
     )<br>
     生成库文件<br>
-    add_library(${PROJECT_NAME}&&&src/${PROJECT_NAME}/beginner_tutorials.cpp)<br>
+    add_library(${PROJECT_NAME}   src/${PROJECT_NAME}/beginner_tutorials.cpp)<br>
     依赖<br>
     //根据你所处理的目标文件，如果自身用到消息则选用${catkin_EXPORTED_TARGETS}<br>
     //如果需要用到的相关文件用到消息则用${PROJECT_NAME}_EXPORTED_TARGETS}<br>
     //如果满足上述两个条件则添加两个
-    add_dependencies(${PROJECT_NAME}&&${${PROJECT_NAME}_EXPORTED_TARGETS}&&${catkin_EXPORTED_TARGETS})<br>
+    add_dependencies(${PROJECT_NAME}  ${${PROJECT_NAME}_EXPORTED_TARGETS}  ${catkin_EXPORTED_TARGETS})<br>
     生成可执行文件<br>
-    add_executable(${PROJECT_NAME}_node&&src/beginner_tutorials_node.cpp)<br>
+    add_executable(${PROJECT_NAME}_node  src/beginner_tutorials_node.cpp)<br>
     修改可执行文件的相关信息<br>
     set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")<br>
     为目标申明依赖文件<br>
-    add_dependencies(${PROJECT_NAME}_node&&${${PROJECT_NAME}_EXPORTED_TARGETS}&&${catkin_EXPORTED_TARGETS})
+    add_dependencies(${PROJECT_NAME}_node  ${${PROJECT_NAME}_EXPORTED_TARGETS}  ${catkin_EXPORTED_TARGETS})
     为目标申明链接库<br>
-    target_link_libraries(${PROJECT_NAME}_node&&${catkin_LIBRARIES})<br>
+    target_link_libraries(${PROJECT_NAME}_node  ${catkin_LIBRARIES})<br>
 >>> * 测试(可选)<br> 
     添加基于gtt的cpp测试目标和链接库<br>
-    catkin_add_gtest(${PROJECT_NAME}-test&&test/test_beginner_tutorials.cpp)<br>
+    catkin_add_gtest(${PROJECT_NAME}-test  test/test_beginner_tutorials.cpp)<br>
     if(TARGET ${PROJECT_NAME}-test)<br>
-    &&&&&target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})<br>
+         target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})<br>
     endif()<br>
-    添加要由python&nosetests运行的文件夹<br>
+    添加要由python nosetests运行的文件夹<br>
     catkin_add_nosetests(test)<br>
 >>> * 安装<br>
     安装脚本<br>
     install(<br>
-    &&&&&PROGRAMS&&scripts/my_python_script<br>
-    &&&&&DESTINATION&&&{CATKIN_PACKAGE_BIN_DESTINATION}<br>
+         PROGRAMS  scripts/my_python_script<br>
+         DESTINATION   {CATKIN_PACKAGE_BIN_DESTINATION}<br>
     )<br>
     安装可执行文件或库文件<br>
     install(<br>
-    &&&&&TARGETS&&${PROJECT_NAME}&&${PROJECT_NAME}_node<br>
-    &&&&&ARCHIVE&&DESTINATION&&${CATKIN_PACKAGE_LIB_DESTINATION}<br>
-    &&&&&LIBRARY&&DESTINATION&&${CATKIN_PACKAGE_LIB_DESTINATION}<br>
-    &&&&&RUNTIME&&DESTINATION&&${CATKIN_PACKAGE_BIN_DESTINATION}<br>
+         TARGETS  ${PROJECT_NAME}  ${PROJECT_NAME}_node<br>
+         ARCHIVE  DESTINATION  ${CATKIN_PACKAGE_LIB_DESTINATION}<br>
+         LIBRARY  DESTINATION  ${CATKIN_PACKAGE_LIB_DESTINATION}<br>
+         RUNTIME  DESTINATION  ${CATKIN_PACKAGE_BIN_DESTINATION}<br>
     )<br>
     安装其他文件<br>
-    install(DIRECTORY&&include/${PROJECT_NAME}/<br>
-    &&&&&DESTINATION&&${CATKIN_PACKAGE_INCLUDE_DESTINATION}<br>
-    &&&&&FILES_MATCHING&&PATTERN&"*.h"<br>
-    &&&&&PATTERN&&".svn"&EXCLUDE<br>
+    install(DIRECTORY  include/${PROJECT_NAME}/<br>
+         DESTINATION  ${CATKIN_PACKAGE_INCLUDE_DESTINATION}<br>
+         FILES_MATCHING  PATTERN "*.h"<br>
+         PATTERN  ".svn" EXCLUDE<br>
     )<br>
-    #Mark&other&files&for&installation&(e.g.&launch&and&bag&files,etc.)<br>
+    #Mark other files for installation (e.g. launch and bag files,etc.)<br>
     install(FILES<br>
-    &&&&&myfile1<br>
-    &&&&&myfile2<br>
-    &&&&&DESTINATION&&${CATKIN_PACKAGE_SHARE_DESTINATION}<br>
+         myfile1<br>
+         myfile2<br>
+         DESTINATION  ${CATKIN_PACKAGE_SHARE_DESTINATION}<br>
     )<br>
 
     
