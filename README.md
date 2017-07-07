@@ -325,7 +325,7 @@ ROS下的编译工作
           std_msgs<br>
      )<br>
 >>> * 动态配置（可选）
-     #在包下的cfg文件夹中生成动态配置参数<br>
+     #在包下的cfg文件夹中生成动态配置参数（需要在catkin_package()中添加dynamic_reconfigure，package.xml run_depent,build_depent增加dynamic_reconfigure）<br>
      generate_dynamic_reconfigure_options(<br>
         cfg/DynReconf1.cfg<br>
      )<br>
@@ -431,12 +431,12 @@ ROS下的编译工作
             LIBRARIES amcl_sensors amcl_map amcl_pf
         )
         
-        --加入一般头文件的路径，在include下创建多个文件应该是为了防止产生冲突
+        --添加文件头文件的路径，在include下创建多个文件应该是为了防止产生冲突
         include_directories(include/amcl include/amcl/map include/amcl/sensors include/amcl/pf) 
-        --加入系统头文件的路径
+        --添加文件头文件的路径
         include_directories(${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
         
-        --生成amcl_pf库文件
+        --.c/.cpp生成amcl_pf库文件
         add_library(amcl_pf
                             src/amcl/pf/pf.c
                             src/amcl/pf/pf_kdtree.c
@@ -459,24 +459,27 @@ ROS下的编译工作
                             src/amcl/sensors/amcl_odom.cpp
                             src/amcl/sensors/amcl_laser.cpp)
                             
-        --指明amcl_sensors生成库文件的链接库为amcl_map,amcl_pf
+        --指明amcl_sensors生成库文件的链接库为amcl_map,amcl_pf，因此amcl_map amcl_pf库文件生成在其前面说明
         target_link_libraries(amcl_sensors amcl_map amcl_pf)
         
         --用src/amcl_node.cpp生成可执行文件amcl
         add_executable(amcl  src/amcl_node.cpp)
         add_dependencies添加依赖
-        #添加对其它package消息的依赖，前提是已经通过find_package()引入了这个package
-        add_dependencies(my_target ${catkin_EXPORTED_TARGETS})
-        # 添加对本package消息的依赖
-        add_dependencies(my_target ${${PROJECT_NAME}_EXPORTED_TARGETS})
-        --项目名字_gencfg/gencpp
-        --项目名字_generate_messages_cpp
-        对本包消息的依赖
+        
         add_dependencies(amcl amcl_gencfg)
-        add_dependencies(talker beginner_tutorials_generate_messages_cpp)
-        add_dependencies(add_two_ints_server beginner_tutorials_gencpp)
-        对其他包消息的依赖
-        add_dependencies(navfn ${PROJECT_NAME}_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
+        
+        //#添加对其它package消息的依赖，前提是已经通过find_package()引入了这个package
+        //add_dependencies(my_target ${catkin_EXPORTED_TARGETS})
+        // # 添加对本package消息的依赖
+        //add_dependencies(my_target ${${PROJECT_NAME}_EXPORTED_TARGETS})
+        // 项目名字_gencfg/gencpp
+        // 项目名字_generate_messages_cpp
+        // 对本包消息的依赖
+        // add_dependencies(amcl amcl_gencfg)
+        // add_dependencies(talker beginner_tutorials_generate_messages_cpp)
+        // add_dependencies(add_two_ints_server beginner_tutorials_gencpp)
+        //对其他包消息的依赖
+        //add_dependencies(navfn ${PROJECT_NAME}_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
         
         
         --指明amcl生成库文件的链接库为amcl_map,amcl_pf
