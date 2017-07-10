@@ -1,30 +1,32 @@
-首先在你电脑中生成SSH key（ssh keygen -t ras ） 将公钥复制到gitlab的SSH key中。
+# git 使用过程
 
-1、Git global setup
-	git config --global user.name "xxx"
-	git config --global user.email "xxx@irobsen.com"
-2、Create a new repository
-	git clone SSH地址
-	cd SSH中的地址
-	touch README.md
-	git add README.md
-	git commit -m "add README"
-	git push -u origin master
-3、Existing folder
-	cd existing_folder
-	git init
-	git remote add origin SSH地址
-	git add .
-	git commit -m "Initial commit"
-	git push -u origin master
+#### git配置
+>首先在你电脑中生成SSH&nbsp;key(ssh&nbsp;keygen&nbsp;-t&nbsp;ras)将公钥复制到gitlab的SSHkey中。
+>>* 1Git&nbsp;global&nbsp;setup
+>>>git&nbsp;config&nbsp;--global&nbsp;user.name&nbsp;"xxx"<br>
+   git&nbsp;config&nbsp;--global&nbsp;user.email&nbsp;"xxx@irobsen.com"<br>
+>>* 2Create&nbsp;a&nbsp;new&nbsp;repository
+>>>git&nbsp;clone&nbsp;SSH地址<br>
+	cd&nbsp;SSH中的地址<br>
+	touch&nbsp;README.md<br>
+	git&nbsp;add&nbsp;README.md<br>
+	git&nbsp;commit&nbsp;-m&nbsp;"add&nbsp;README"<br>
+	git&nbsp;push&nbsp;-u&nbsp;origin&nbsp;master<br>
+>>* 3Existing&nbsp;folder
+>>>cd&nbsp;existing_folder<br>
+	git&nbsp;init<br>
+	git&nbsp;remote&nbsp;add&nbsp;origin&nbsp;SSH地址<br>
+	git&nbsp;add&nbsp;.<br>
+	git&nbsp;commit&nbsp;-m&nbsp;"Initial&nbsp;commit"<br>
+	git&nbsp;push&nbsp;-u&nbsp;origin&nbsp;master<br>
+>>* Existing&nbsp;Git&nbsp;repository
+>>>cd&nbsp;existing_repo<br>
+	git&nbsp;remote&nbsp;add&nbsp;origin&nbsp;SSH地址<br>
+	git&nbsp;push&nbsp;-u&nbsp;origin&nbsp;--all<br>
+	git&nbsp;push&nbsp;-u&nbsp;origin&nbsp;--tags<br>
 
-4、Existing Git repository
-	cd existing_repo
-	git remote add origin SSH地址
-	git push -u origin --all
-	git push -u origin --tags
-	
-cherry-pick   git rebase
+### git命名
+cherry-pick git rebase
 
 Git Describe
 git bisect（一个查找产生 Bug 的提交记录的指令）找到某个提交记录时，或者是当你坐在你那刚刚度假回来的同事的电脑前时， 可能会用到这个命令。
