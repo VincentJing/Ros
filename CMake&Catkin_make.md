@@ -13,7 +13,7 @@ CMake
 >> * 运行make install安装到相应的目录下。
 
 >CMakeLists.txt
->> * 有工作流程可知其核心为如何编写CMakeLists.txt。
+>> * 由工作流程可知其核心为如何编写CMakeLists.txt。
 >> * CMakeLists.txt的编写是根据目录结构和源程序的各种依赖或其他情况。
 >> * CMakeLists.txt中常用的命名。
 
@@ -68,9 +68,9 @@ CMake
        add_dependencies(target-name depend-target1 depend-target2 …)<br>
        定义target依赖的其他target,确保target在构建之前,其依赖的target已经构建完毕<br>
        catkin_make中有两种情况：<br>
-       (1)你所构建的包依赖需要使用message等的包<br>
+       (1)对其他包消息的依赖<br>
        add_dependencies(some_target  ${catkin_EXPORTED_TARGETS})<br>
-       (2)你所构建的包需要使用message等<br>
+       (2)对本包消息的依赖<br>
        add_dependencies(some_target  ${${PROJECT_NAME}_EXPORTED_TARGETS})<br>
 >>>> * aux_source_directory<br>
        aux_source_directory(dir VAR)<br>
@@ -297,7 +297,7 @@ ROS下的编译工作
     cmake_minimum_required(VERSION x.x.x)<br>
 >>> * 项目的名称<br>
     project(xxx)<br>
->>> * 指明构建该包需要的package，catkin包必须包含，后面的依情况而定<br>
+>>> * 指明构建该包需要的package，在ROS中必须包含catkin包，其中COMPONENTS申明后面包作为组件，在找到路径后，加入到catkin路径中，后面的依情况而定<br>
     find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs message_generation)<br>
 >>> * 申明对python模块的支持（可选)<br>
     
@@ -325,12 +325,12 @@ ROS下的编译工作
           std_msgs<br>
      )<br>
 >>> * 动态配置（可选）
-     #在包下的cfg文件夹中生成动态配置参数（需要在catkin_package()中添加dynamic_reconfigure，package.xml run_depent,build_depent增加dynamic_reconfigure）<br>
+     #在包下的cfg文件夹中生成动态配置参数（需要在catkin_package()中添加dynamic_reconfigure，在package.xml中run_depend,build_depend增加dynamic_reconfigure）<br>
      generate_dynamic_reconfigure_options(<br>
         cfg/DynReconf1.cfg<br>
      )<br>
 >>> * catkin_package()<br>
-    #catkin的特殊配置，必须在生成库文件或则可执行文件之前执行<br> 
+    #catkin的特殊配置，必须在生成库文件或者可执行文件之前执行<br> 
     catkin_package(<br>
        #INCLUDE_DIRS  include           包含路径<br>
        #LIBRARIES  beginner_tutorials               项目输出的库文件<br>
@@ -360,7 +360,7 @@ ROS下的编译工作
     为目标申明链接库<br>
     target_link_libraries(${PROJECT_NAME}_node  ${catkin_LIBRARIES})<br>
     <br> 
-    修改可执行文件的相关信息<br>
+    设置输出的名称,设置动态库的版本和API版本<br>
     set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")<br>
 >>> * 测试(可选)<br>
     添加基于gtt的cpp测试目标和链接库<br>
@@ -383,13 +383,13 @@ ROS下的编译工作
          LIBRARY  DESTINATION  ${CATKIN_PACKAGE_LIB_DESTINATION}<br>
          RUNTIME  DESTINATION  ${CATKIN_PACKAGE_BIN_DESTINATION}<br>
     )<br>
-    安装其他文件<br>
+    安装其他文件夹<br>
     install(DIRECTORY  include/${PROJECT_NAME}/<br>
          DESTINATION  ${CATKIN_PACKAGE_INCLUDE_DESTINATION}<br>
          FILES_MATCHING  PATTERN "*.h"<br>
          PATTERN  ".svn" EXCLUDE<br>
     )<br>
-    #Mark other files for installation (e.g. launch and bag files,etc.)<br>
+    #安装其他文件<br>
     install(FILES<br>
          myfile1<br>
          myfile2<br>
@@ -405,7 +405,7 @@ ROS下的编译工作
         project(amcl)                                          --项目名称为amcl
         
         find_package(catkin REQUIRED                           --寻找一般依赖库
-                COMPONENTS
+                COMPONENTSt
                     rosbag
                     roscpp
                     tf
