@@ -3,6 +3,7 @@
 >Git更像是把变化的文件作快照后，记录在一个微型的文件系统中。每次提交更新时，它会纵览一遍所有文件的指纹信息并对文件作一快照，然后保存一个指向这次快照的索引。为提高性能，若文件没有变化，Git不会再次保存，而只对上次保存的快照作一链接。<br>
 Git三种状态：working、staging、git&nbsp;directory<br>
 在working中git&nbsp;add-》staging，在使用git&nbsp;commit-》git&nbsp;directory<br>
+在working中git&nbsp;clone将库中的工作重新加载下来<br>
 #### git配置
 >首先在你电脑中生成SSH&nbsp;key(ssh&nbsp;keygen&nbsp;-t&nbsp;ras)将公钥复制到gitlab的SSHkey中。
 >>* 1Git&nbsp;global&nbsp;setup
