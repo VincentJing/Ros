@@ -75,6 +75,7 @@
     然后用commit&nbsp;--amend来进行一些小修改<br>
     接着再用git&nbsp;rebase-i来将他们调回原来的顺序<br>
     最后我们把master移到修改的最前端（用你自己喜欢的方法），就大功告成啦！<br>
+    
 #### 一般的工作流程
 >>* 分支介绍：<br>
     master:主分支<br>
