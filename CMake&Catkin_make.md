@@ -191,7 +191,7 @@ Catkin_make
 ---
 >根据ros官网给出的介绍以下两种表达是等价的。
 >> catkin_make
->>>$ cd ~/catkin_make<br>	
+>>>$ cd ~/catkin_ws<br>	
 >>>$ catkin_make<br>
 
 >>cmake
@@ -322,7 +322,7 @@ ROS下的编译工作
 >>> * 调用、生成消息,服务时的所需要的依赖<br>
      generate_messages(<br>
           DEPENDENCIES<br>
-          std_msgs<br>
+          std_msgs//<br>
      )<br>
 >>> * 动态配置（可选）
      #在包下的cfg文件夹中生成动态配置参数（需要在catkin_package()中添加dynamic_reconfigure，在package.xml中run_depend,build_depend增加dynamic_reconfigure）<br>
@@ -334,7 +334,7 @@ ROS下的编译工作
     catkin_package(<br>
        #INCLUDE_DIRS  include           包含路径<br>
        #LIBRARIES  beginner_tutorials               项目输出的库文件<br>
-       CATKIN_DEPENDS  message_runtime              这个项目调用的其他的catkin项目<br>
+       CATKIN_DEPENDS  message_runtime  这个项目调用的其他的catkin项目<br>
        #CATKIN_DEPENDS  roscpp rospy std_msgs             这个项目调用其他的cmake项目<br>
        #DEPENDS  system_lib                添加配置选项<br>
     )<br>
@@ -370,7 +370,7 @@ ROS下的编译工作
     endif()<br>
     添加要由python nosetests运行的文件夹<br>
     catkin_add_nosetests(test)<br>
->>> * 安装<br>
+>>> * 安装（可选）<br>
     安装脚本<br>
     install(<br>
          PROGRAMS  scripts/my_python_script<br>
@@ -395,7 +395,11 @@ ROS下的编译工作
          myfile2<br>
          DESTINATION  ${CATKIN_PACKAGE_SHARE_DESTINATION}<br>
     )<br>
-
+    最后就是在工作间下创建一个bulid目录，进入之后，编译直接的包。<br>
+    >>>$ cd ~/catkin_ws<br>	
+    >>>$ cd build<br>
+    >>>$ cmake ../src -DCMAKE_INSTALL_PREFIX=../install -DCATKIN_DEVEL_PREFIX=../devel<br>
+    >>>$ make<br>
     
 >> * CMakeLists.txt解析
 
