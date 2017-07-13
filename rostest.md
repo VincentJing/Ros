@@ -1,9 +1,9 @@
 #rostest简介
 rostest是roslaunch的扩展,rostest文件和roslaunch文件100%兼容,将一个测试给一个测试节点去跑的感觉。<br>
-需要一个测试节点(一般放在scr/test/testnode.cpp)、一个启动文件(test/testnode.test)
+需要一个测试(一般放在scr/test/testnode.cpp)、一个launch文件(test/testnode.test)
 >* 一般流程：<br>
-    1、编写测试节点。<br>
-    2、编写启动文件。<br>
+    1、编写测试。<br>
+    2、编写launch文件。<br>
     3、添加相关依赖。<br>
     4、在CMakeLists.txt中添rostest<br>
     5、编译、运行。
@@ -21,7 +21,7 @@ rostest是roslaunch的扩展,rostest文件和roslaunch文件100%兼容,将一个
                     test/   <---gtests go there
                 test/       <---rostests  go there
     
->>* 编写测试节点(一般放在test/下，可以使用C++借用gtest框架或者python借用unittest框架)<br>
+>>* 编写测试(一般放在test/下，可以使用C++借用gtest框架或者python借用unittest框架)<br>
 >>>* 使用c++(rostest和gtest100%兼容)<br>
 >>>>* 编写test.cpp<br>
     1、包含需要测试的对象、以及<gtest/gtest.h><br>
@@ -37,7 +37,8 @@ rostest是roslaunch的扩展,rostest文件和roslaunch文件100%兼容,将一个
      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;testing::InitGoogleTest(&argc,argv);<br>
      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;RUN_ALL_TESTS();<br>
      }<br>
-     eg.测试math_utils/math_utils.h中的函数(该测试命名为utest.cpp)<br>
+     eg.<br>
+     测试math_utils/math_utils.h中的函数(该测试命名为utest.cpp)<br>
      #inlcude&nbsp;"math_utils/math_utils.h"<br>
      #inlcude&nbsp;<gtest/gtest.h><br>
      TEST(MathUtil,testcase1)<br>
@@ -48,8 +49,16 @@ rostest是roslaunch的扩展,rostest文件和roslaunch文件100%兼容,将一个
      &nbsp;&nbsp;testing::InitGoogleTest(&argc,argv);<br> 
      &nbsp;&nbsp;return&nbsp;RUN_ALL_TESTS();<br>
      }<br>
->>* 节点启动文件格式<br>
-    以.test或者.launch后缀结束，主要差别在于<&nbsp;test&nbsp;>&nbsp;<&nbsp;/test&nbsp;><br>
+     运行你的测试<br>
+     在CMakeLists.txt中添加<br>
+     catkin_add_gtest(utest_node&nbsp;src/test/utest.cpp)<br>
+     target_link_libraries(utest_node&nbsp;${catkin_LIBRARIES})<br>
+     like&nbsp;this:<br>
+     cd ~/catkin_ws<br>
+     catkin_make run_tests_mypackage<br>
+     
+>>* rostest的launch文件格式<br>
+    以.test或者.launch后缀结束，与一般的launch文件基本一样，主要差别在于<&nbsp;test&nbsp;>&nbsp;<&nbsp;/test&nbsp;><br>
     eg.<br>
     <&nbsp;launch&nbsp;><br>
     &nbsp;&nbsp;&nbsp;<&nbsp;test&nbsp;&nbsp;/><br>
@@ -77,8 +86,11 @@ type->节点的类型，必须和可执行文件一直<br>
     endif()<br>
 >>* 编译、运行测试
 >* 运行rostest<br>
-   catkin&nbsp;build编译<br>
-   catkin&nbsp;make_runtest运行测试<br>
+   cd ~/catkin_ws<br>
+   catkin_make<br>
+   catkin_make&nbsp;run_tests_mypackage<br>
+   or<br>
+   rostest&nbsp;mypackage&nbsp;xxx.test<br>
 >* 可重用的测试节点(对于kinetic而言)
 >>* hztest<br>
     测试节点在某一主题上发布的频率<br>
