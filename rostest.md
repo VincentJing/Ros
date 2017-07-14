@@ -1,3 +1,7 @@
+#gtest安装配置
+  1.下载gtest源码包<br>
+  2.进入该目录下编译cmake,make将会生成两个静态库libgtest.a libgtest_main.a<br>
+  3.将这两个静态库移入到全局路径下：sudo&nbsp;cp&nbsp;libgtest*.a&nbsp;&nbsp;&nbsp;/usr/local/lib<br>
 #rostest简介
 rostest是roslaunch的扩展,rostest文件和roslaunch文件100%兼容,将一个测试给一个测试节点去跑的感觉。<br>
 需要一个测试(一般放在scr/test/testnode.cpp)、一个launch文件(test/testnode.test)
@@ -28,10 +32,27 @@ rostest是roslaunch的扩展,rostest文件和roslaunch文件100%兼容,将一个
     2、申明所要做的测试<br>
     Test(TestSuite,testCase1)(这两个名字无所谓，只是便于你在查看的时候知道，一般前者为测试对象-像一个类，后者为测试对象里的测试原子-类里面具体的方法)<br>
     {<br>
-    &nbsp;&nbsp;测试的消息，在需要的时候通过调用EXPECT_宏和ASSERT_宏<br>
-    (EXPECT:执行测试过程中有错误也接着执行下去<br>
-     ASSERT:执行测试过程中一旦错误，立刻停止)<br>
-    }<br>
+    &nbsp;&nbsp;测试的消息，在需要的时候通过断言EXPECT_宏和ASSERT_宏进行测试<br>
+     }<br> 
+     &nbsp;&nbsp;&nbsp;(<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;断言介绍(对于指针而言是判断是否指向同一块内存空间)<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSERT:的断言函数如果判定最终结果不满足判定输出值，将会发出&nbsp;断言失败+终止程序的结果<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPECT:的断言函数如果判断最终结果不满足判定输出值，将仅会发出&nbsp;断言失败的提示信息<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;基本断言：<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSERT:ASSERT_TRUE(condition);condition为布尔值，且判断其是否为真<br> 
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSERT:ASSERT_FALSE(condition);condition为布尔值，且判断其是否为假<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSERT_EQ(expected,actual);&nbsp;&nbsp;&nbsp;expected==actual<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSERT_NE(expected,actual);&nbsp;&nbsp;&nbsp;expected!=actual<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSERT_LT(expected,actual);&nbsp;&nbsp;&nbsp;expected小于actual<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSERT_LE(expected,actual);&nbsp;&nbsp;&nbsp;expected小于等于actual<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSERT_GT(expected,actual);&nbsp;&nbsp;&nbsp;expected大于actual<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSERT_GE(expected,actual);&nbsp;&nbsp;&nbsp;expected大于等于actual<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;基于字符串:<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSERT_STREQ(str1,str2);str1's&nbsp;&nbsp;content&nbsp;=&nbsp;str2's&nbsp;&nbsp;content<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSERT_STRNE(str1,str2);str1's&nbsp;&nbsp;content!&nbsp;=&nbsp;str2's&nbsp;&nbsp;content<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSERT_STRCASEEQ(str1,str2);str1's&nbsp;&nbsp;content&nbsp;=&nbsp;str2's&nbsp;&nbsp;content,ignoring&nbsp;&nbsp;characters&nbsp;&nbsp;case<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSERT_STRCASENE(str1,str2);ignoring&nbsp;&nbsp;string&nbsp;&nbsp;characters'case,str1's&nbsp;&nbsp;content&nbsp;!=&nbsp;str2's&nbsp;&nbsp;content<br>
+     &nbsp;&nbsp;&nbsp;)<br>
     3、运行申明的所有的测试<br>
      int&nbsp;main(int&nbsp;argc,char&nbsp;**argv){<br>
      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;testing::InitGoogleTest(&argc,argv)//初始化;<br>
@@ -51,6 +72,7 @@ rostest是roslaunch的扩展,rostest文件和roslaunch文件100%兼容,将一个
      }<br>
      运行你的测试<br>
      在运行测试之前你需要在CMakeLists.txt中添加<br>
+     在catkin_make(推荐)的情况下(在rosbuild的情况下rosbuild_add_gtest(utest_node&nbsp;src/test/utest.cpp))<br>
      catkin_add_gtest(utest_node&nbsp;src/test/utest.cpp)<br>
      target_link_libraries(utest_node&nbsp;${catkin_LIBRARIES})<br>
      like&nbsp;this:<br>
