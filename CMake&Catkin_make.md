@@ -206,18 +206,18 @@ Catkin_make
 
 >catkin_make中每个包需要CMakeLists.txt和package.xml
 >>CMakeLists.txt需要按照下列流程（4、5、6、7、9与一般的不同）
->>>* 1.Required CMake Version (cmake_minimum_required)
->>>* 2.Package Name (project())
->>>* 3.Find other CMake/Catkin packages needed for build (find_package())
+>>>* 1.要求CMake的版本(cmake_minimum_required)
+>>>* 2.包名(project())
+>>>* 3.找编译该包需要的包(find_package())
 >>>//如果您的ROS包提供了一些Python模块，您应该创建一个setup.py文件并调用
->>>* <font color=red>4.Enable Python module support (catkin_python_setup())</font>
->>>* <font color=red>5.Message/Service/Action Generators (add_message_files(),add_service_files(),add_action_files())</font>
->>>* <font color=red>6.Invoke message/service/action generation (generate_messages())</font>
+>>>* <font color=red>4.增添对Python的支持(catkin_python_setup())</font>
+>>>* <font color=red>5.生成消息、服务、操作(add_message_files(),add_service_files(),add_action_files())</font>
+>>>* <font color=red>6.调用生成消息、服务、操作(generate_messages())</font>
 >>>//负责ros特定的配置,这也是ros包和一般包的区别
->>>* <font color=red>7.Specify package build info export (catkin_package())</font>
->>>* 8.Libraries/Executables to build (add_library()/add_executable()/target_link_libraries())
->>>* <font color=red>9.Tests to build (catkin_add_gtest())</font>
->>>* 10.Install rules (install()) 
+>>>* <font color=red>7.包特殊的配置(catkin_package())</font>
+>>>* 8.编译可执行文件和库(add_library()/add_executable()/target_link_libraries())
+>>>* <font color=red>9.编写测试(catkin_add_gtest())</font>
+>>>* 10.安装的规则(install()) 
 
 >>package.xml
 >>>最基本的标签package name,version numbers,authors,maintainers,and dependencies on other catkin packages
@@ -297,7 +297,7 @@ ROS下的编译工作
     cmake_minimum_required(VERSION x.x.x)<br>
 >>> * 项目的名称<br>
     project(xxx)<br>
->>> * 指明构建该包需要的package，在ROS中必须包含catkin包，其中COMPONENTS申明后面包作为组件，在找到路径后，加入到catkin路径中，后面的依情况而定<br>
+>>> * 找编译该包需要依赖的其他包，在ROS中必须包含catkin包，其中COMPONENTS申明后面包作为组件，在找到路径后，加入到catkin路径中，后面的依情况而定<br>
     find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs message_generation)<br>
 >>> * 申明对python模块的支持（可选)<br>
     

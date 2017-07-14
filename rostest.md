@@ -93,6 +93,7 @@ type->节点的类型，必须和add_rostest_gtest(tests_mynode_test,test/mynode
    or<br>
    rostest&nbsp;mypackage&nbsp;xxx.test<br><br>
    <br>
+   注释:每次修改后需要重新编译一下测试节点,使用rostest才能更新.。
    
 >>* 可重用的测试节点(对于kinetic而言)
 >>>* hztest<br>

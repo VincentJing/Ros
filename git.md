@@ -6,24 +6,24 @@ Git三种状态：working、staging、git&nbsp;directory<br>
 在working中git&nbsp;clone将库中的工作重新加载下来<br>
 #### git配置
 >首先在你电脑中生成SSH&nbsp;key(ssh&nbsp;keygen&nbsp;-t&nbsp;ras)将公钥复制到gitlab的SSHkey中。
->>* 1Git&nbsp;global&nbsp;setup
+>>* 1Git全局变量的设置
 >>>git&nbsp;config&nbsp;--global&nbsp;user.name&nbsp;"xxx"<br>
    git&nbsp;config&nbsp;--global&nbsp;user.email&nbsp;"xxx@irobsen.com"<br>
->>* 2Create&nbsp;a&nbsp;new&nbsp;repository
+>>* 2创建一个新的库
 >>>git&nbsp;clone&nbsp;SSH地址<br>
 	cd&nbsp;SSH中的地址<br>
 	touch&nbsp;README.md<br>
 	git&nbsp;add&nbsp;README.md<br>
 	git&nbsp;commit&nbsp;-m&nbsp;"add&nbsp;README"<br>
 	git&nbsp;push&nbsp;-u&nbsp;origin&nbsp;master<br>
->>* 3Existing&nbsp;folder
+>>* 3存在的文件夹
 >>>cd&nbsp;existing_folder<br>
 	git&nbsp;init<br>
 	git&nbsp;remote&nbsp;add&nbsp;origin&nbsp;SSH地址<br>
 	git&nbsp;add&nbsp;.<br>
 	git&nbsp;commit&nbsp;-m&nbsp;"Initial&nbsp;commit"<br>
 	git&nbsp;push&nbsp;-u&nbsp;origin&nbsp;master<br>
->>* Existing&nbsp;Git&nbsp;repository
+>>* 存在的Git库
 >>>cd&nbsp;existing_repo<br>
 	git&nbsp;remote&nbsp;add&nbsp;origin&nbsp;SSH地址<br>
 	git&nbsp;push&nbsp;-u&nbsp;origin&nbsp;--all<br>
