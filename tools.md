@@ -3,10 +3,17 @@
 >>
 
 >* 记录和可视化数据
->>rosbag<br>
-    
->>rqt_bag<br>
-    
+>>* rosbag<br>
+  rosbag&nbsp;recor&nbsp;-a<br>
+  录入所有的话题上传的消息到本文件夹<br>
+  rosbag&nbsp;record&nbsp;-O&nbsp;subset&nbsp;/turtle1/cmd_vel&nbsp;/turtle1/pose<br>
+  录入上述两个话题上传的信息到本文件中<br>
+  rosbag&nbsp;info&nbsp;<your&nbsp;bagfile><br>
+  查看某个文件夹的信息<br>
+  rosbag&nbsp;play&nbsp;[-r]&nbsp;n&nbsp;&nbsp;<your&nbsp;bagfile><br>
+  [以一定的速率]回放录入的信息<br>
+>>* rqt_bag<br>
+    完成上面功能的图形化工具。
 >* 生命线
 >>rqt_plot<br>
     $&nbsp;rosrun&nbsp;rqt_plot&nbsp;rqt_plot<br>
@@ -93,7 +100,7 @@
             describe&nbsp;//Get&nbsp;description&nbsp;of&nbsp;resource<br>
 >>>* rosdep<br>
     安装系统依赖
->>>* rosstack<br>
+>>>* rosstack(包的集合)<br>
     是一个用于检索文件系统上可用的ROS堆栈信息的命令行工具。它实现了各种命令，从定位文件系统中的ROS堆栈到列出可用的堆栈，以计算堆栈的依赖关系树。它也用于ROS构建系统中用于计算堆栈的构建信息。
 >>>* rospack<br>
     是一个用于检索文件系统上可用的ROS包的信息的命令行工具。它实现了各种各样的命令，从定位文件系统中的ROS包，列出可用的包，以计算包的依赖关系树。它也用于ROS构建系统中用于计算软件包的构建信息	
