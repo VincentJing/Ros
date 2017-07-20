@@ -1,8 +1,6 @@
 #gtest
->* 下载安装:<br>
-  1.下载gtest源码包<br>
-  2.进入该目录下编译cmake,make将会生成两个静态库libgtest.a libgtest_main.a<br>
-  3.将这两个静态库移入到全局路径下：sudo&nbsp;cp&nbsp;libgtest*.a&nbsp;&nbsp;&nbsp;/usr/local/lib<br>
+>* 下载安装(如有需要):<br>
+  1.下载gtest<br>
 >* gtest断言：<br>
     &nbsp;&nbsp;&nbsp;&nbsp;断言介绍(对于指针而言是判断是否指向同一块内存空间)<br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSERT:的断言函数如果判定最终结果不满足判定输出值，将会发出&nbsp;断言失败+终止程序的结果<br>
@@ -90,9 +88,8 @@ rostest是roslaunch的扩展,rostest文件和roslaunch文件100%兼容,将一个
 >* 一般流程：<br>
     1、编写测试。<br>
     2、编写launch文件。<br>
-    3、在package.xml中加入相应信息。<br>
-    4、在CMakeLists.txt中添rostest<br>
-    5、编译、运行。
+    3、在CMakeLists.txt中添rostest<br>
+    4、编译、运行。
     <br>
     <br>
     文件一般的结构如下：<br>
@@ -149,7 +146,7 @@ rostest是roslaunch的扩展,rostest文件和roslaunch文件100%兼容,将一个
     &nbsp;&nbsp;&nbsp;<&nbsp;test&nbsp;&nbsp;/><br>
     <&nbsp;/launch&nbsp;><br>
 >>* <&nbsp;test&nbsp;>标记<br>
-<&nbsp;test&nbsp;test-name="test_1_2"&nbsp;pkg="mypkg"&nbsp;type="test_1_2.cpp"&nbsp;time-limit="10.0"&nbsp;args="--test1&nbsp;--test2" />
+<&nbsp;test&nbsp;test-name="test_1_2"&nbsp;pkg="mypkg"&nbsp;type="test_1_2"&nbsp;time-limit="10.0"&nbsp;args="--test1&nbsp;--test2" />
 标记至少需要的属性pkg、test-name、type<br>
 pkg->节点所在的包<br>
 test-name->测试的名字<br>
@@ -171,12 +168,32 @@ type->节点的类型，必须和add_rostest_gtest(tests_mynode_test,test/mynode
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;add_rostest(test/mytest.test)<br>
     endif()<br>
 >>* 编译、运行测试
->>>* 运行rostest<br>
-   cd ~/catkin_ws<br>
-   catkin_make&nbsp;mypackage_test<TAB><br>
-   or<br>
-   rostest&nbsp;mypackage&nbsp;xxx.test<br><br>
-   注释:每次修改后需要重新编译一下测试节点,使用rostest才能更新.
+>>>* 编译<br>
+    catkin_make&nbsp;and&nbsp;catkin_make&nbsp;tests<br>
+    or<br>
+    catkin_make&nbsp;mypackage_test<br>
+>>>* 运行<br>
+    cd ~/catkin_ws<br>
+    catkin_make&nbsp;run_tests<TAB><br>
+    or<br>
+    rostest&nbsp;mypackage&nbsp;xxx.test<br><br>
+    注释:每次修改后需要重新编译一下测试节点,使用rostest才能更新.<br>
+>>>* rostest介绍<br>
+     rostest&nbsp;[options]&nbsp;[package]&nbsp;<filename><br>
+     rostest默认情况下时：将.test文件中的节点注册到一个新的master中，而不是已运行的条件下<br>
+     在此，我想说明一下的是，多用命令的help,rostest --help如下:<br>
+     Options:<br>
+      &nbsp;-h,&nbsp;--help//获取帮助<br>
+      &nbsp;-t,&nbsp;--text//以标准输出在控制台，而不是默认的XML文件<nr>
+      &nbsp;--pkgdir=PKG_DIR//包目录<br>
+      &nbsp;--package=PACKAGE//包文件<br>
+      &nbsp;--results-filename=RESULTS_FILENAME//测试结果文件的名字<br>
+      &nbsp;--results-base-dir=RESULTS_BASE_DIR//测试结果的基本路径，具体测试的结果以PKG_DIR名为子目录<br>
+      &nbsp;-r,&nbsp;--reuse-master//连接到已经存在的master上而不是新生成一个master<br>
+      &nbsp;-c,&nbsp;--clear//当连接到已经存在的master上，清楚所有的参数<br>
+                             
+
+
    
 >>* 可重用的测试节点(对于kinetic而言)
 >>>* hztest<br>
@@ -185,7 +202,7 @@ type->节点的类型，必须和add_rostest_gtest(tests_mynode_test,test/mynode
     
     <launch>
       <node name="talker" pkg="beginner_tutorials" type="talker"/>
-    
+     
       <param name="hztest1/topic" value="chatter" />
       <param name="hztest1/hz" value="10.0" />
       <param name="hztest1/hzerror" value="0.5" />
@@ -198,10 +215,10 @@ type->节点的类型，必须和add_rostest_gtest(tests_mynode_test,test/mynode
     测试主题至少发布一次<br>
     eg.(测试主题chatter是否至少发布一次)
     
-    
     <launch>
       <node name="talker" pkg="beginner_tutorials" type="talker"/> 
-      <test name="publishtest"  test-name="publishtest" pkg="rostest" type="publishtest">
+      
+      <test test-name="publishtest" pkg="rostest" type="publishtest">
         <rosparam>
           topics:
             - name: chatter

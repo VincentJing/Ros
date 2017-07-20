@@ -353,9 +353,9 @@ ROS下的编译工作
     #添加对其它package消息的依赖，前提是已经通过find_package()引入了这个package<br>
     add_dependencies(${PROJECT_NAME}  ${catkin_EXPORTED_TARGETS}}<br>
     #添加对本package消息的依赖<br>
-    dd_dependencies(${PROJECT_NAME}  ${PROJECT_NAME}_EXPORTED_TARGETS}}<br>
+    dd_dependencies(${PROJECT_NAME}  ${${PROJECT_NAME}_EXPORTED_TARGETS}}<br>
     #如果满足上述两个条件则添加两个<br>
-    add_dependencies(${PROJECT_NAME}  ${PROJECT_NAME}_EXPORTED_TARGETS}  ${catkin_EXPORTED_TARGETS})<br>
+    add_dependencies(${PROJECT_NAME}  ${${PROJECT_NAME}_EXPORTED_TARGETS}  ${catkin_EXPORTED_TARGETS})<br>
     <br>
     为目标申明链接库<br>
     target_link_libraries(${PROJECT_NAME}_node  ${catkin_LIBRARIES})<br>
