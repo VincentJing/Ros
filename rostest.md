@@ -211,6 +211,15 @@ type->节点的类型，必须和add_rostest_gtest(tests_mynode_test,test/mynode
     </launch>
 >>>* paramtest<br>
     测试参数的值<br>
+    eg.测试一个param存在不存在<br>
+    
+    </launch>
+        <test pkg="rostest" type="paramtest" test-name="paramtest_nonempty">
+            <param name="param_name_target" value="/rosdistro" />
+            <param name="test_duration" value="5.0" />
+            <param name="wait_time" value="20.0" />
+        </test>
+    </launch>
 >>>* publishtest<br>
     测试主题至少发布一次<br>
     eg.(测试主题chatter是否至少发布一次)
