@@ -242,3 +242,27 @@ type->节点的类型，必须和add_rostest_gtest(tests_mynode_test,test/mynode
     2、rostest&nbsp;--reuse-master&nbsp;foo_package&nbsp;foo.test<br>
     3、grep&nbsp;-r&nbsp;"Registering&nbsp;with&nbsp;master&nbsp;node"~/.ros/log/latest<br>
     将返回主节点的URL和端口号
+
+简单的测试
+---
+>> 测试话题&测试服务<br>
+>>> 方法一：<br>
+    在main函数中初始化节点：<br>
+    ...<br>
+    ros::init(argc,argv,"AvoidBumper");<br>
+    ros::NodeHandle&nbsp;n;<br>
+    ...<br>
+    在TEST中重申明一个节点n<br>
+    ...<br>
+    ros::NodeHandle&nbsp;n;<br>
+    ...<br>
+    
+>>> 方法二:<br>
+    自己写一个类继承public&bnsp;testing::Test<br>
+    在新类里面加入节点变量ros::NodeHandle<br>
+    如上文的gtest三种机制<br>
+    参考<br>
+    [话题_订阅者](https://github.com/ros/ros_comm/blob/lunar-devel/test/test_roscpp/test/src/multiple_subscriptions.cpp)<br>
+    [话题_发布者](https://github.com/ros/ros_comm/blob/lunar-devel/test/test_roscpp/test/src/publish_unadvertise.cpp)<br>
+    [服务_服务提供者](https://github.com/ros/ros_comm/blob/lunar-devel/test/test_roscpp/test/src/service_adv_multiple.cpp)<br>
+    [服务_服务调用者](https://github.com/ros/ros_comm/blob/lunar-devel/test/test_roscpp/test/src/service_call.cpp)<br>
