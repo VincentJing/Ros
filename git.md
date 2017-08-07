@@ -48,7 +48,7 @@ Git三种状态：working、staging、git&nbsp;directory<br>
 >>* git&nbsp;rebase<br>
     第二种合并分支的方法是git&nbsp;rebase。Rebase&nbsp;实际上就是取出一系列的提交记录，“复制”它们，然后在另外一个地方逐个的放下去。<br>
     Rebase的优势就是可以创造更线性的提交历史，这听上去有些难以理解。如果只允许使用Rebase的话，代码库的提交历史将会变得异常清晰。<br>
->>* git&nbsp;full(git&nbsp;fetch和git&nbsp;merge的缩写)<br>
+>>* git&nbsp;pull(git&nbsp;fetch和git&nbsp;merge的缩写)<br>
     一般用于远程分支领先于本地分支<br>
 >>* git&nbsp;fetch<br>
     上述命令从远程refs/heads/命名空间复制所有分支，并将它们存储到本地的refs/remotes/ origin/命名空间中，除非使用分支.<name>.fetch选项来指定非默认的refspec。<br>
