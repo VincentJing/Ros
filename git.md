@@ -29,29 +29,42 @@ Git三种状态：working、staging、git&nbsp;directory<br>
 	git&nbsp;push&nbsp;-u&nbsp;origin&nbsp;--all<br>
 	git&nbsp;push&nbsp;-u&nbsp;origin&nbsp;--tags<br>
 
-### git命名
+### 常用的git命令
 >>* git&nbsp;add<br>
-    跟踪某一个文件夹
+    跟踪某一个文件夹<br>
+    git&add&&文件名&
 >>* git&nbsp;commit<br>
     Git&nbsp;仓库中的提交记录保存的是你的目录下所有文件的快照，就像是把整个目录复制，然后再粘贴一样，但比复制粘贴优雅许多！<br>
     Git&nbsp;希望提交记录尽可能地轻量，因此在你每次进行提交时，它并不会盲目地复制整个目录。条件允许的情况下，它会将当前版本与仓库中的上一个版本进行对比，并把所有的差异打包到一起作为一个提交记录。<br>
-    Git&nbsp;还保存了提交的历史记录。这也是为什么大多数提交记录的上面都有父节点的原因——我们会在图示中用箭头来表示这种关系。对于项目组的成员来说，维护提交历史对大家都有好处。<br>
-    关于提交记录太深入的东西咱们就不再继续探讨了，现在你可以把提交记录看作是项目的快照。提交记录非常轻量，可以快速地在这些提交记录之间切换！
+    Git&nbsp;还保存了提交的历史记录。这也是为什么大多数提交记录的上面都有父节点的原因。对于项目组的成员来说，维护提交历史对大家都有好处。<br>
+    现在你可以把提交记录看作是项目的快照。提交记录非常轻量，可以快速地在这些提交记录之间切换！<br>
+    git&commit&-m&"修改内容描述"<br>
 >>* git&nbsp;branch<br>
-    Git&nbsp;的分支也非常轻量。它们只是简单地指向某个提交纪录——仅此而已。所以许多Git爱好者传颂：<br>
-    早建分支！多用分支！<br>
+    Git&nbsp;的分支也非常轻量。它们只是简单地指向某个提交纪录——仅此而已。所以许多Git爱好者传颂：早建分支！多用分支！<br>
     这是因为即使创建再多分的支也不会造成储存或内存上的开销，并且按逻辑分解工作到不同的分支要比维护那些特别臃肿的分支简单多了。<br>
     在将分支和提交记录结合起来后，我们会看到两者如何协作。现在只要记住使用分支其实就相当于在说：“我想基于这个提交以及它所有的父提交进行新的工作。”<br>
+    $git&branch&//列出本地分支<br>
+    $git&branch&-r&//列出远程分支<br>
+    $git&branch&-a&//列出所有分支<br>
+    $git&branch&分支名&//创建分支<br>
+    $git&branch&-m&oldbranchname&newbranchname&//给分支重新命名<br>
+    $git&branch&-d&branchname&//删除本地分支<br>
+    $git&branch&-d&-r&branchname&//删除远程分支<br>
 >>* git&nbsp;merge<br>
     太好了!我们已经知道如何提交以及如何使用分支了。接下来咱们看看如何将两个分支合并到一起。就是说我们新建一个分支，在其上开发某个新功能，开发完成后再合并回主线。<br>
     咱们先来看一下第一种方法——git&nbsp;merge。在Git中合并两个分支时会产生一个特殊的提交记录，它有两个父节点。翻译成自然语言相当于：“我要把这两个父节点本身及它们所有的祖先都包含进来。”<br>
+    $git&commit&branchname&//将该分支和当前分支合并，产生一个新的节点为前两个节点的子节点<br>   
 >>* git&nbsp;rebase<br>
     第二种合并分支的方法是git&nbsp;rebase。Rebase&nbsp;实际上就是取出一系列的提交记录，“复制”它们，然后在另外一个地方逐个的放下去。<br>
     Rebase的优势就是可以创造更线性的提交历史，这听上去有些难以理解。如果只允许使用Rebase的话，代码库的提交历史将会变得异常清晰。<br>
+    $git&rebase&branchname&//将该分支和当前分支合并，且该分支为当前分支子分子<br>
 >>* git&nbsp;pull(git&nbsp;fetch和git&nbsp;merge的缩写)<br>
-    一般用于远程分支领先于本地分支<br>
+    取回远程主机某个分支的更新，再与本地的指定分支合并。一般用于远程分支领先于本地分支<br>
+    $git&pull&origin&next:master&//远程分支next和master分支合并<br>
+    $git&pull&origin&next&//远程分支next和当前分支合并<br>
+    当使用git&branch&--set-upstream&master&origin/next后，追踪远程分支,指定master分支追踪origin/next分支<br>
+    $git&pull&origin&//将当前分支和远程next分支合并<br>
 >>* git&nbsp;fetch<br>
-    上述命令从远程refs/heads/命名空间复制所有分支，并将它们存储到本地的refs/remotes/ origin/命名空间中，除非使用分支.<name>.fetch选项来指定非默认的refspec。<br>
 >>* 分离HEAD<br>
     我们首先看一下“HEAD”。HEAD是一个对当前检出记录的符号引用——也就是指向你正在其基础上进行工作的提交记录。<br>
     HEAD总是指向当前分支上最近一次提交记录。大多数修改提交树的Git命令都是从改变HEAD的指向开始的。<br>
