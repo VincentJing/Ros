@@ -23,6 +23,8 @@ CMake
 >>>> * set<br>
          set(VAR [VALUE] [CACHE TYPE DOCSTRING [FORCE]])<BR>
        定义变量(可以定义多个VALUE,如SET(SRC_LIST MAIN.C UTIL.C REACTOR.C))<BR>
+>>>> * set&(CMAKE_CXX_FLAGS&"${CMAKE_CXX_FLAGS}&-std=c++11")<br>
+ 	设置CMake使用C++的版本<br>
 >>>> * message<br>
          message([SEND_ERROR | STATUS | FATAL_ERROR] “message to display” …)<br>
        向终端输出用户定义的信息或变量的值<br>
