@@ -64,6 +64,21 @@ Git三种状态：working、staging、git&nbsp;directory<br>
     $git&pull&origin&next&//远程分支next和当前分支合并<br>
     当使用git&branch&--set-upstream&master&origin/next后，追踪远程分支,指定master分支追踪origin/next分支<br>
     $git&pull&origin&//将当前分支和远程next分支合并<br>
+>>* git&pull&发生冲突<br>
+    1.$git&pull(提示有冲突)<br>
+    2.修改自己和远程不一样的(当以远程为主)或者$git&stash(暂存自己不一样的东西)<br>
+    3.$git&pull<br>
+    4.$git&stash&pop&stash@{0}(还原自己的东西,针对以自己为主)<br>
+>>* 撤销git&commit<br>
+    1.$git&log&//查看提交的SHA,即是commit后面的<br>
+    2.$git&reset&--hard&SHA&（你想撤销的push前一个）<br>
+    3.$git&reset&SHA<br>
+    1,2结合撤销commit并且还撤销代码修改<br>
+    1,3只是撤销commit<br>
+>>* 撤销git&push<br>
+    1.$git&log&//查看提交的SHA,即是commit后面的<br>
+    2.$git&reset&--hard&SHA&（你想撤销的push前一个）<br>
+    3.$git&push&--force&branch<br>
 >>* git&nbsp;fetch<br>
 >>* 分离HEAD<br>
     我们首先看一下“HEAD”。HEAD是一个对当前检出记录的符号引用——也就是指向你正在其基础上进行工作的提交记录。<br>
