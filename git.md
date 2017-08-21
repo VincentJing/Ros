@@ -38,7 +38,7 @@ Git三种状态：working、staging、git&nbsp;directory<br>
     Git&nbsp;希望提交记录尽可能地轻量，因此在你每次进行提交时，它并不会盲目地复制整个目录。条件允许的情况下，它会将当前版本与仓库中的上一个版本进行对比，并把所有的差异打包到一起作为一个提交记录。<br>
     Git&nbsp;还保存了提交的历史记录。这也是为什么大多数提交记录的上面都有父节点的原因。对于项目组的成员来说，维护提交历史对大家都有好处。<br>
     现在你可以把提交记录看作是项目的快照。提交记录非常轻量，可以快速地在这些提交记录之间切换！<br>
-    git&commit&-m&"修改内容描述"<br>
+    git&nbsp;commit&nbsp;-m&nbsp;"修改内容描述"<br>
 >>* git&nbsp;branch<br>
     Git&nbsp;的分支也非常轻量。它们只是简单地指向某个提交纪录——仅此而已。所以许多Git爱好者传颂：早建分支！多用分支！<br>
     这是因为即使创建再多分的支也不会造成储存或内存上的开销，并且按逻辑分解工作到不同的分支要比维护那些特别臃肿的分支简单多了。<br>
@@ -78,17 +78,20 @@ Git三种状态：working、staging、git&nbsp;directory<br>
 >>* git&nbsp;fetch<br>
     $git&nbsp;fetch&nbsp;<远程主机名>&nbsp;<分支名><br>
 >>* 分离HEAD<br>    
+
 >>>* 相对引用~<br>
-    如果你想在提交树中向上移动很多步的话，敲那么多^貌似也挺烦人的，Git当然也考虑到了这一点，于是又引入了操作符~。<br>
-    该操作符后面可以跟一个数字（可选，不跟数字时与^相同，向上移动一次），指定向上移动多少次。咱们还是通过实际<br>
-    我使用相对引用最多的就是移动分支。可以直接使用 -f 选项让分支指向另一个提交。例如:<br>git&nbsp;branch&nbsp;-f&nbsp;HEAD~n<br>
->>>* 相对引用^<br>
-    所以master^相当于“master的父节点”。
+    如果你想在提交树中向上移动很多步的话,敲那么多&nbsp;^&nbsp;貌似也挺烦人的,Git当然也考虑到了这一点,于是又引入了操作符~。<br>
+    该操作符后面可以跟一个数字（可选,不跟数字时与&nbsp;^&nbsp;相同,向上移动一次）,指定向上移动多少次.咱们还是通过实际<br>
+    我使用相对引用最多的就是移动分支.可以直接使用-f选项让分支指向另一个提交.例如:<br>git&nbsp;branch&nbsp;-f&nbsp;HEAD~n<br>
+>>>* 相对引用&nbsp;^&nbsp;<br>
+    所以master&nbsp;^&nbsp;相当于“master的父节点”。
+    
 >>* 撤销变更<br>
     Git里撤销变更的方法很多。和提交一样，撤销变更由底层部分（暂存区的独立文件或者片段）和上层部分（变更到底是通过哪咱方式被撤销的）组成。我们<br>
     这个应用主要关注的是后者。主要有两种方法用来撤销变更——一是git&;reset，还有就是git&revert。git&reset通过把分支记录回退几个提交记录来实<br>
     现撤销改动。你可以将这想象成“改写历史”。git&;reset向上移动分支，原来指向的提交记录就跟从来没有提交过一样。为了撤销<更改并分享给别人，我们<br>
     需要使用git&nbsp;revert。<br>
+    
 >>>* 撤销git&nbsp;commit<br>
         1.$git&nbsp;log&nbsp;//查看提交的SHA,即是commit后面的<br>
         2.$git&nbsp;reset&nbsp;--hard&nbsp;SHA&nbsp;（你想撤销的push前一个）<br>
@@ -100,6 +103,7 @@ Git三种状态：working、staging、git&nbsp;directory<br>
         2.$git&nbsp;reset&nbsp;--hard&nbsp;SHA&nbsp;（你想撤销的push前一个）<br>
         3.$git&nbsp;push&nbsp;--force&nbsp;branch<br>
         是否加-hard和上面一样<br>
+        
 #### 一般的工作流程
 >>* 分支介绍：<br>
     master:主分支<br>
