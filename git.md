@@ -32,7 +32,7 @@ Git三种状态：working、staging、git&nbsp;directory<br>
 ### 常用的git命令
 >>* git&nbsp;add<br>
     跟踪某一个文件夹<br>
-    git&add&&文件名&
+    git&nbsp;add&nbsp;文件名&
 >>* git&nbsp;commit<br>
     Git&nbsp;仓库中的提交记录保存的是你的目录下所有文件的快照，就像是把整个目录复制，然后再粘贴一样，但比复制粘贴优雅许多！<br>
     Git&nbsp;希望提交记录尽可能地轻量，因此在你每次进行提交时，它并不会盲目地复制整个目录。条件允许的情况下，它会将当前版本与仓库中的上一个版本进行对比，并把所有的差异打包到一起作为一个提交记录。<br>
@@ -43,40 +43,40 @@ Git三种状态：working、staging、git&nbsp;directory<br>
     Git&nbsp;的分支也非常轻量。它们只是简单地指向某个提交纪录——仅此而已。所以许多Git爱好者传颂：早建分支！多用分支！<br>
     这是因为即使创建再多分的支也不会造成储存或内存上的开销，并且按逻辑分解工作到不同的分支要比维护那些特别臃肿的分支简单多了。<br>
     在将分支和提交记录结合起来后，我们会看到两者如何协作。现在只要记住使用分支其实就相当于在说：“我想基于这个提交以及它所有的父提交进行新的工作。”<br>
-    $git&branch&//列出本地分支<br>
-    $git&branch&-r&//列出远程分支<br>
-    $git&branch&-a&//列出所有分支<br>
-    $git&branch&分支名&//创建分支<br>
-    $git&branch&-m&oldbranchname&newbranchname&//给分支重新命名<br>
-    $git&branch&-d&branchname&//删除本地分支<br>
-    $git&branch&-d&-r&branchname&//删除远程分支<br>
+    $git&nbsp;branch&nbsp;//列出本地分支<br>
+    $git&nbsp;branch&nbsp;-r&nbsp;//列出远程分支<br>
+    $git&nbsp;branch&nbsp;-a&nbsp;//列出所有分支<br>
+    $git&nbsp;branch&nbsp;分支名&nbsp;//创建分支<br>
+    $git&nbsp;branch&nbsp;-m&nbsp;oldbranchname&nbsp;newbranchname&nbsp;//给分支重新命名<br>
+    $git&nbsp;branch&nbsp;-d&nbsp;branchname&nbsp;//删除本地分支<br>
+    $git&nbsp;branch&nbsp;-d&nbsp;-r&nbsp;branchname&nbsp;//删除远程分支<br>
 >>* git&nbsp;merge<br>
-    $git&merge&fixes&enhancements&//合并两个分支到当前分支<br>
-    $git&merge&dev&//将dev分支和当前分支合并<br>
-    $git&merge&--no-commit&maint&//不自动更新新的提交<br>   
+    $git&nbsp;merge&nbsp;fixes&nbsp;enhancements&nbsp;//合并两个分支到当前分支<br>
+    $git&nbsp;merge&nbsp;dev&nbsp;//将dev分支和当前分支合并<br>
+    $git&nbsp;merge&nbsp;--no-commit&nbsp;maint&nbsp;//不自动更新新的提交<br>   
 >>* git&nbsp;rebase<br>
-    $git&rebase类似$git&merge只是合并的时候并不是生成分支的共同字节的，而是在远程分支下添加<br>
+    $git&nbsp;rebase类似$git&nbsp;merge只是合并的时候并不是生成分支的共同字节的，而是在远程分支下添加<br>
 >>* git&nbsp;pull(git&nbsp;fetch和git&nbsp;merge的缩写)<br>
     取回远程主机某个分支的更新，再与本地的指定分支合并。一般用于远程分支领先于本地分支<br>
-    $git&pull&origin&next:master&//远程分支next和master分支合并<br>
-    $git&pull&origin&next&//远程分支next和当前分支合并<br>
-    当使用git&branch&--set-upstream&master&origin/next后，追踪远程分支,指定master分支追踪origin/next分支<br>
-    $git&pull&origin&//将当前分支和远程next分支合并<br>
->>* git&pull&发生冲突<br>
-    1.$git&pull(提示有冲突)<br>
-    2.$git&stash(暂存自己不一样的东西)<br>
-    3.$git&pull<br>
-    4.$git&stash&pop&stash@{0}(提示有冲突)<br>
+    $git&nbsp;pull&nbsp;origin&nbsp;next:master&nbsp;//远程分支next和master分支合并<br>
+    $git&nbsp;pull&nbsp;origin&nbsp;next&nbsp;//远程分支next和当前分支合并<br>
+    当使用git&nbsp;branch&nbsp;--set-upstream&nbsp;master&nbsp;origin/next后，追踪远程分支,指定master分支追踪origin/next分支<br>
+    $git&nbsp;pull&nbsp;origin&nbsp;//将当前分支和远程next分支合并<br>
+>>* git&nbsp;pull&nbsp;发生冲突<br>
+    1.$git&nbsp;pull(提示有冲突)<br>
+    2.$git&nbsp;stash(暂存自己不一样的东西)<br>
+    3.$git&nbsp;pull<br>
+    4.$git&nbsp;stash&nbsp;pop&nbsp;stash@{0}(提示有冲突)<br>
     5.修改自己和远程不一样的<br>
-      &&&&打开有冲突的文件<br>
-      &&&&<<<<<<<<br>
-      &&&&...远程的...<br>
-      &&&&=======<br>
-      &&&&...本地的...<br>
-      &&&&>>>>>>><br>
+      &nbsp;&nbsp;&nbsp;&nbsp;打开有冲突的文件<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;<<<<<<<<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;...远程的...<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;=======<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;...本地的...<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;>>>>>>><br>
     根据需求进行修改<br>
 >>* git&nbsp;fetch<br>
-    $git&fetch&<远程主机名>&<分支名><br>
+    $git&nbsp;fetch&nbsp;<远程主机名>&nbsp;<分支名><br>
 >>* 分离HEAD<br>    
 >>>* 相对引用~<br>
     如果你想在提交树中向上移动很多步的话，敲那么多^貌似也挺烦人的，Git当然也考虑到了这一点，于是又引入了操作符~。<br>
@@ -89,16 +89,16 @@ Git三种状态：working、staging、git&nbsp;directory<br>
     这个应用主要关注的是后者。主要有两种方法用来撤销变更——一是git&;reset，还有就是git&revert。git&reset通过把分支记录回退几个提交记录来实<br>
     现撤销改动。你可以将这想象成“改写历史”。git&;reset向上移动分支，原来指向的提交记录就跟从来没有提交过一样。为了撤销<更改并分享给别人，我们<br>
     需要使用git&nbsp;revert。<br>
->>>* 撤销git&commit<br>
-        1.$git&log&//查看提交的SHA,即是commit后面的<br>
-        2.$git&reset&--hard&SHA&（你想撤销的push前一个）<br>
-        3.$git&reset&SHA<br>
+>>>* 撤销git&nbsp;commit<br>
+        1.$git&nbsp;log&nbsp;//查看提交的SHA,即是commit后面的<br>
+        2.$git&nbsp;reset&nbsp;--hard&nbsp;SHA&nbsp;（你想撤销的push前一个）<br>
+        3.$git&nbsp;reset&nbsp;SHA<br>
         1,2结合撤销commit并且还撤销代码修改<br>
         1,3只是撤销commit<br>
 >>>* 撤销git&push<br>
-        1.$git&log&//查看提交的SHA,即是commit后面的<br>
-        2.$git&reset&--hard&SHA&（你想撤销的push前一个）<br>
-        3.$git&push&--force&branch<br>
+        1.$git&nbsp;log&nbsp;//查看提交的SHA,即是commit后面的<br>
+        2.$git&nbsp;reset&nbsp;--hard&nbsp;SHA&nbsp;（你想撤销的push前一个）<br>
+        3.$git&nbsp;push&nbsp;--force&nbsp;branch<br>
         是否加-hard和上面一样<br>
 #### 一般的工作流程
 >>* 分支介绍：<br>
